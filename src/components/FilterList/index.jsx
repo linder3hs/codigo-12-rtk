@@ -9,7 +9,7 @@ export default function FilterList(props) {
       <ul className="mt-3 flex flex-col gap-2">
         {list.map((element) => (
           <li key={element.id}>
-            <a href="#">Movies</a>
+            <a href="#">{element}</a>
           </li>
         ))}
       </ul>

@@ -15,7 +15,7 @@ export default function Home() {
           </div>
         </div>
         <hr className="mt-10 h-1 bg-gray-200" />
-        <div className="flex gap-20 mt-10">
+        <div className="flex gap-24 mt-10">
           <div className="flex flex-col gap-7">
             <h2 className="font-semibold">Filtrar por:</h2>
             <FilterList text="Categoría" list={["Movies", "Series"]} />
