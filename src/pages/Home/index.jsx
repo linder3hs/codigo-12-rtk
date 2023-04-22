@@ -20,10 +20,8 @@ export default function Home() {
     const text = e.target.value;
     setSearch(text);
 
-
     if (text.length >= 3) dispatch(generateDataAutoComplete(text));
     if (text.length < 3) dispatch(cleanAutocomplete());
-    
   };
 
   useEffect(() => {
@@ -58,9 +56,17 @@ export default function Home() {
               <ul>
                 {autocomplete.length > 0 &&
                   autocomplete.map((movie) => (
-                    <li key={movie.title} className="flex gap-2">
+                    <li key={movie.id} className="flex gap-2">
                       <img src={movie.image} width={50} />
-                      <span>{movie.title}</span>
+                      <button
+                        onClick={() => {
+                          setSearch(movie.title);
+                          dispatch(getMovies(movie.title));
+                          dispatch(cleanAutocomplete());
+                        }}
+                      >
+                        <span>{movie.title}</span>
+                      </button>
                     </li>
                   ))}
               </ul>

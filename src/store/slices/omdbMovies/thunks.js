@@ -33,11 +33,14 @@ export const generateDataAutoComplete = (text) => {
   return async (dispatch) => {
     const { data } = await api.get(`?apikey=f2d94c7d&s=${text}`);
 
+    if (!data.Search) return;
+
     const titles = data.Search.map((movie) => {
       return {
+        id: movie.imdbID,
         title: movie.Title,
-        image: movie.Poster
-      }
+        image: movie.Poster,
+      };
     });
 
     dispatch(setAutoComplete({ titles }));
