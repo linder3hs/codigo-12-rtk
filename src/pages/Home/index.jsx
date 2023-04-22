@@ -1,6 +1,15 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getMovies } from "../../store/slices/omdbMovies/thunks";
 import { FilterList, Movies } from "../../components";
 
 export default function Home() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMovies());
+  }, []);
+
   return (
     <>
       <div className="max-w-5xl m-auto p-10">
