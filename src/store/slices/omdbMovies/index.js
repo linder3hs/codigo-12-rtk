@@ -4,6 +4,7 @@ export const omdbSlice = createSlice({
   name: "omdb",
   initialState: {
     movies: [],
+    autocomplete: [],
     years: [],
     isLoading: false,
   },
@@ -16,7 +17,14 @@ export const omdbSlice = createSlice({
       state.movies = action.payload.movies;
       state.years = action.payload.years;
     },
+    setAutoComplete: (state, action) => {
+      state.autocomplete = action.payload.titles;
+    },
+    cleanAutocomplete: (state) => {
+      state.autocomplete = [];
+    },
   },
 });
 
-export const { initLoading, setMovies } = omdbSlice.actions;
+export const { initLoading, setMovies, setAutoComplete, cleanAutocomplete } =
+  omdbSlice.actions;

@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMovies } from "../../store/slices/omdbMovies/thunks";
+import {
+  getMovies,
+  generateDataAutoComplete,
+} from "../../store/slices/omdbMovies/thunks";
+import { cleanAutocomplete } from "../../store/slices/omdbMovies";
 import { FilterList, Movies } from "../../components";
 
 export default function Home() {
@@ -8,7 +12,19 @@ export default function Home() {
 
   const dispatch = useDispatch();
 
-  const { movies, years, isLoading } = useSelector((state) => state.movies);
+  const { movies, years, isLoading, autocomplete } = useSelector(
+    (state) => state.movies
+  );
+
+  const handleInputChange = (e) => {
+    const text = e.target.value;
+    setSearch(text);
+
+
+    if (text.length >= 3) dispatch(generateDataAutoComplete(text));
+    if (text.length < 3) dispatch(cleanAutocomplete());
+    
+  };
 
   useEffect(() => {
     dispatch(getMovies());
@@ -21,21 +37,34 @@ export default function Home() {
           <div>
             <h1 className="text-blue-800 text-6xl font-extrabold">Películas</h1>
           </div>
-          <div className="flex gap-2">
-            <input
-              type="text"
-              name="search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="bg-transparent ring-1 ring-gray-300 w-full h-10 rounded peer px-5 transition-all outline-none focus:ring-gray-400 valid:ring-gray-400"
-              placeholder="Buscar tu pelicula"
-            />
-            <button
-              onClick={() => dispatch(getMovies(search))}
-              className="border border-blue-800 text-blue-800 py-2 px-4 hover:bg-blue-800 hover:text-white rounded-md transition-colors"
-            >
-              Buscar
-            </button>
+          <div>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                name="search"
+                value={search}
+                onChange={handleInputChange}
+                className="bg-transparent ring-1 ring-gray-300 w-full h-10 rounded peer px-5 transition-all outline-none focus:ring-gray-400 valid:ring-gray-400"
+                placeholder="Buscar tu pelicula"
+              />
+              <button
+                onClick={() => dispatch(getMovies(search))}
+                className="border border-blue-800 text-blue-800 py-2 px-4 hover:bg-blue-800 hover:text-white rounded-md transition-colors"
+              >
+                Buscar
+              </button>
+            </div>
+            <div>
+              <ul>
+                {autocomplete.length > 0 &&
+                  autocomplete.map((movie) => (
+                    <li key={movie.title} className="flex gap-2">
+                      <img src={movie.image} width={50} />
+                      <span>{movie.title}</span>
+                    </li>
+                  ))}
+              </ul>
+            </div>
           </div>
         </div>
         <hr className="mt-10 h-1 bg-gray-200" />

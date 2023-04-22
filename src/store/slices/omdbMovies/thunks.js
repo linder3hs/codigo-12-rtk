@@ -1,4 +1,4 @@
-import { initLoading, setMovies } from ".";
+import { initLoading, setMovies, setAutoComplete } from ".";
 import { api } from "../../../services";
 
 export const getMovies = (name = "Batman") => {
@@ -26,5 +26,20 @@ export const getMovies = (name = "Batman") => {
     const years = movies.map((movie) => movie.year);
 
     dispatch(setMovies({ movies, years: [...new Set(years.sort())] }));
+  };
+};
+
+export const generateDataAutoComplete = (text) => {
+  return async (dispatch) => {
+    const { data } = await api.get(`?apikey=f2d94c7d&s=${text}`);
+
+    const titles = data.Search.map((movie) => {
+      return {
+        title: movie.Title,
+        image: movie.Poster
+      }
+    });
+
+    dispatch(setAutoComplete({ titles }));
   };
 };
