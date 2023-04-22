@@ -1,7 +1,7 @@
 import { initLoading, setMovies } from ".";
 import { api } from "../../../services";
 
-export const getMovies = (name = "Avengers") => {
+export const getMovies = (name = "Marvel") => {
   return async (dispatch) => {
     dispatch(initLoading());
 
@@ -23,6 +23,8 @@ export const getMovies = (name = "Avengers") => {
       };
     });
 
-    dispatch(setMovies({ movies }));
+    const years = movies.map((movie) => movie.year);
+
+    dispatch(setMovies({ movies, years: [...new Set(years.sort())] }));
   };
 };

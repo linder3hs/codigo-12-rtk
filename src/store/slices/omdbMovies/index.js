@@ -4,6 +4,7 @@ export const omdbSlice = createSlice({
   name: "omdb",
   initialState: {
     movies: [],
+    years: [],
     isLoading: false,
   },
   reducers: {
@@ -13,6 +14,7 @@ export const omdbSlice = createSlice({
     setMovies: (state, action) => {
       state.isLoading = false;
       state.movies = action.payload.movies;
+      state.years = action.payload.years;
     },
   },
 });
