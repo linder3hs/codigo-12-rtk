@@ -13,6 +13,16 @@ export const getMovies = (name = "Avengers") => {
       total: data.totalResults,
     };
 
-    dispatch(setMovies({ movies: objMovies.movies }));
+    const movies = objMovies.movies.map((movie) => {
+      return {
+        id: movie.imdbID,
+        title: movie.Title,
+        year: movie.Year,
+        type: movie.Type,
+        image: movie.Poster,
+      };
+    });
+
+    dispatch(setMovies({ movies }));
   };
 };

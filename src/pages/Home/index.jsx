@@ -1,10 +1,12 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getMovies } from "../../store/slices/omdbMovies/thunks";
 import { FilterList, Movies } from "../../components";
 
 export default function Home() {
   const dispatch = useDispatch();
+
+  const { movies, isLoading } = useSelector((state) => state.movies);
 
   useEffect(() => {
     dispatch(getMovies());
@@ -32,7 +34,7 @@ export default function Home() {
             <FilterList text="Año" list={["2011", "2012", "2013", "2014"]} />
           </div>
           <div>
-            <Movies />
+            <Movies movies={movies} />
           </div>
         </div>
       </div>

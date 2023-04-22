@@ -14,7 +14,7 @@ export default function Movies(props) {
                 alt=""
                 className="hover:scale-105 hover:cursor-pointer duration-150"
               />
-              <h2 className="my-4 font-bold text-xl">{movie.name}</h2>
+              <h2 className="my-4 font-bold text-xl">{movie.title}</h2>
             </div>
           ))
         ) : (
