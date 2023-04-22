@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMovies } from "../../store/slices/omdbMovies/thunks";
 import { FilterList, Movies } from "../../components";
 
 export default function Home() {
+  const [search, setSearch] = useState("");
+
   const dispatch = useDispatch();
 
   const { movies, years, isLoading } = useSelector((state) => state.movies);
@@ -19,10 +21,21 @@ export default function Home() {
           <div>
             <h1 className="text-blue-800 text-6xl font-extrabold">Películas</h1>
           </div>
-          <div>
-            <a href="#">
-              <span className="font-bold">En catelera</span>
-            </a>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              name="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="bg-transparent ring-1 ring-gray-300 w-full h-10 rounded peer px-5 transition-all outline-none focus:ring-gray-400 valid:ring-gray-400"
+              placeholder="Buscar tu pelicula"
+            />
+            <button
+              onClick={() => dispatch(getMovies(search))}
+              className="border border-blue-800 text-blue-800 py-2 px-4 hover:bg-blue-800 hover:text-white rounded-md transition-colors"
+            >
+              Buscar
+            </button>
           </div>
         </div>
         <hr className="mt-10 h-1 bg-gray-200" />
@@ -34,7 +47,7 @@ export default function Home() {
             <FilterList text="Año" list={years} />
           </div>
           <div>
-            <Movies movies={movies} />
+            {isLoading ? <span>Loading...</span> : <Movies movies={movies} />}
           </div>
         </div>
       </div>
