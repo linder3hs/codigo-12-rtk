@@ -6,7 +6,7 @@ import { FilterList, Movies } from "../../components";
 export default function Home() {
   const dispatch = useDispatch();
 
-  const { movies, isLoading } = useSelector((state) => state.movies);
+  const { movies, years, isLoading } = useSelector((state) => state.movies);
 
   useEffect(() => {
     dispatch(getMovies());
@@ -27,11 +27,11 @@ export default function Home() {
         </div>
         <hr className="mt-10 h-1 bg-gray-200" />
         <div className="flex gap-24 mt-10">
-          <div className="flex flex-col gap-7">
+          <div className="flex flex-col gap-7 w-60">
             <h2 className="font-semibold">Filtrar por:</h2>
             <FilterList text="Categoría" list={["Movies", "Series"]} />
             <hr className="h-1 bg-gray-200" />
-            <FilterList text="Año" list={["2011", "2012", "2013", "2014"]} />
+            <FilterList text="Año" list={years} />
           </div>
           <div>
             <Movies movies={movies} />

@@ -1,7 +1,7 @@
 import { initLoading, setMovies } from ".";
 import { api } from "../../../services";
 
-export const getMovies = (name = "Marvel") => {
+export const getMovies = (name = "Batman") => {
   return async (dispatch) => {
     dispatch(initLoading());
 
