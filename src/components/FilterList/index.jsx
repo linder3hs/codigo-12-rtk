@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 export default function FilterList(props) {
-  const { text, list } = props;
+  const { text, list, search, getMovies, dispatch } = props;
 
   return (
     <div>
@@ -9,7 +9,9 @@ export default function FilterList(props) {
       <ul className="mt-3 flex flex-col gap-2">
         {list.map((element) => (
           <li key={element}>
-            <a href="#">{element}</a>
+            <button onClick={() => dispatch(getMovies(search, element))}>
+              {element}
+            </button>
           </li>
         ))}
       </ul>
@@ -20,4 +22,7 @@ export default function FilterList(props) {
 FilterList.propTypes = {
   text: PropTypes.string,
   list: PropTypes.array,
+  search: PropTypes.string,
+  getMovies: PropTypes.func,
+  dispatch: PropTypes.func,
 };

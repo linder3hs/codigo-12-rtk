@@ -1,7 +1,7 @@
 import { initLoading, setMovies, setAutoComplete } from ".";
 import { api } from "../../../services";
 
-export const getMovies = (name = "Batman") => {
+export const getMovies = (name = "Batman", year) => {
   return async (dispatch) => {
     dispatch(initLoading());
 
@@ -25,7 +25,13 @@ export const getMovies = (name = "Batman") => {
 
     const years = movies.map((movie) => movie.year);
 
-    dispatch(setMovies({ movies, years: [...new Set(years.sort())] }));
+    let moviesResponse = movies;
+
+    if (year) moviesResponse = movies.filter((movie) => movie.year === year);
+
+    dispatch(
+      setMovies({ movies: moviesResponse, years: [...new Set(years.sort())] })
+    );
   };
 };
 
