@@ -38,7 +38,9 @@ export default function Home() {
       <div className="max-w-5xl m-auto p-10">
         <div className="flex gap-10 items-end">
           <div>
-            <h1 className="text-blue-800 text-6xl font-extrabold">Películas</h1>
+            <h1 className="text-orange-500 text-6xl font-extrabold">
+              Películas
+            </h1>
           </div>
           <div>
             <div className="flex gap-2">

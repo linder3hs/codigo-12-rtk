@@ -13,7 +13,7 @@ export default function Search(props) {
           <div className="relative mt-1">
             <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md">
               <Combobox.Input
-                className="w-full border-none py-2 px-5 text-sm leading-5 focus:ring-0 focus:outline-none"
+                className="w-full border-none py-2 shadow-inner shadow-orange-500 px-5 text-sm leading-5 focus:ring-0 focus:outline-none"
                 displayValue={search}
                 onChange={handleInputChange}
               />
