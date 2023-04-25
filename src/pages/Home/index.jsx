@@ -16,6 +16,11 @@ export default function Home() {
     (state) => state.movies
   );
 
+  const handleSelectOnChange = (value) => {
+    setSearch(value);
+    dispatch(getMovies(value));
+  };
+
   const handleInputChange = (e) => {
     const text = e.target.value;
     setSearch(text);
@@ -40,28 +45,9 @@ export default function Home() {
               <Search
                 search={search}
                 handleInputChange={handleInputChange}
-                dispatch={dispatch}
-                getMovies={getMovies}
+                handleSelectOnChange={handleSelectOnChange}
+                autocomplete={autocomplete}
               />
-            </div>
-            <div>
-              <ul>
-                {autocomplete.length > 0 &&
-                  autocomplete.map((movie) => (
-                    <li key={movie.id} className="flex gap-2">
-                      <img src={movie.image} width={50} />
-                      <button
-                        onClick={() => {
-                          setSearch(movie.title);
-                          dispatch(getMovies(movie.title));
-                          dispatch(cleanAutocomplete());
-                        }}
-                      >
-                        <span>{movie.title}</span>
-                      </button>
-                    </li>
-                  ))}
-              </ul>
             </div>
           </div>
         </div>
